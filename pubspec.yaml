@@ -38,6 +38,7 @@ dependencies:
   cloud_firestore: ^1.0.3
   fluttertoast: ^8.0.3
   flutter_login:
+  double_back_to_close_app: ^2.0.1
 
 dev_dependencies:
   flutter_test:
