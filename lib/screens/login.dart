@@ -75,12 +75,14 @@ class LoginPage {
                   onPressed: () async {
                     print(nameController.text);
                     print(passwordController.text);
-                    bool authSuccess = await FirebaseService()
-                        .login(nameController.text, passwordController.text);
+                    bool authSuccess =
+                        await FirebaseService.getFirebaseService().login(
+                            nameController.text, passwordController.text);
                     print(authSuccess);
                     if (authSuccess) {
-                      bool profileValid = await FirebaseService()
-                          .isProfileUpdated(nameController.text);
+                      bool profileValid =
+                          await FirebaseService.getFirebaseService()
+                              .isProfileUpdated(nameController.text);
                       if (profileValid) {
                         Navigator.push(
                             context,

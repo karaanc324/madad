@@ -17,10 +17,8 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Firebase.initializeApp();
-    getList();
   }
 
   @override
@@ -33,8 +31,7 @@ class _HomeState extends State<Home> {
       body: Column(
         children: [
           StreamBuilder(
-              // stream: FirebaseService().getAllSocialService(),
-              stream: snap,
+              stream: FirebaseService.getFirebaseService().getRoleList(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasData) {
                   return ListView.builder(
@@ -61,27 +58,5 @@ class _HomeState extends State<Home> {
         child: Icon(Icons.add_alert),
       ),
     );
-  }
-
-  getList() async {
-    // String roleToGet = getRoles() as String;
-    // return FirebaseService().getRoles(roleToGet);
-    Stream<QuerySnapshot> lol;
-
-    await getRoles().then((value) => {lol = value});
-    print("55555555555555555555 $lol");
-    // return lol;
-    setState(() {
-      snap = lol;
-    });
-  }
-
-  getRoles() async {
-    var role;
-    await FirebaseService()
-        .getRoleToDisplay(email)
-        .then((value) => {role = FirebaseService().getRoleList(value)});
-    print("888888888888888888888888 $role");
-    return role;
   }
 }

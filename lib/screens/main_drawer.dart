@@ -69,7 +69,7 @@ class MainDrawer extends StatelessWidget {
             ),
           ),
           onTap: () {
-            FirebaseService().logout();
+            FirebaseService.getFirebaseService().logout();
             Navigator.popUntil(
                 context, (Route<dynamic> predicate) => predicate.isFirst);
           },

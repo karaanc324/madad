@@ -81,8 +81,10 @@ class SignupPage {
                       print(confPasswordController.text);
                       if (passwordController.text ==
                           confPasswordController.text) {
-                        bool userCreated = await FirebaseService().registerUser(
-                            nameController.text, passwordController.text);
+                        bool userCreated =
+                            await FirebaseService.getFirebaseService()
+                                .registerUser(nameController.text,
+                                    passwordController.text);
                         print("==================");
                         print(userCreated);
                         if (userCreated) {

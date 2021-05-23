@@ -152,7 +152,7 @@ class _SaveOrgState extends State<SaveOrg> {
                   onPressed: () {
                     print(geoPoint.latitude.toString());
                     print(result.latitude.toString());
-                    FirebaseService().addOrganisation(
+                    FirebaseService.getFirebaseService().addOrganisation(
                         context,
                         nameController.text,
                         role,

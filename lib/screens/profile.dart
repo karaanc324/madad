@@ -39,7 +39,6 @@ class _ProfileState extends State<Profile> {
                   .snapshots(),
               builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                 if (snapshot.hasData) {
-                  print("############################");
                   return ListView.builder(
                     shrinkWrap: true,
                     itemCount: 1,
@@ -86,7 +85,6 @@ class _ProfileState extends State<Profile> {
                     },
                   );
                 } else {
-                  print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@2");
                   return CircularProgressIndicator();
                 }
               }),
