@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:madad/screens/main_drawer.dart';
+import 'package:madad/helper/helper.dart';
 import 'package:madad/screens/maps.dart';
 import 'package:latlong/latlong.dart';
 import 'package:madad/service/firebase_service.dart';
@@ -18,9 +17,7 @@ class SaveOrg extends StatefulWidget {
 }
 
 class _SaveOrgState extends State<SaveOrg> {
-  _SaveOrgState() {
-    Firebase.initializeApp();
-  }
+  _SaveOrgState() {}
   TextEditingController nameController = TextEditingController();
   TextEditingController contactController = TextEditingController();
   TextEditingController addressController = TextEditingController();
@@ -34,10 +31,7 @@ class _SaveOrgState extends State<SaveOrg> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Add address'),
-      ),
-      drawer: MainDrawer(),
+      appBar: Helper.getAppBar("Add address"),
       body: Container(
         padding: EdgeInsets.only(top: 20),
         height: MediaQuery.of(context).size.height,

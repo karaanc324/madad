@@ -8,15 +8,11 @@ import 'package:madad/screens/signup.dart';
 import 'package:madad/service/firebase_service.dart';
 
 class LoginPage {
-  LoginPage() {
-    Firebase.initializeApp();
-  }
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   File _image;
 
   Padding getLoginPage(BuildContext context) {
-    // Firebase.initializeApp();
     return Padding(
         padding: EdgeInsets.all(10),
         child: ListView(

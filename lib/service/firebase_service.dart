@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -10,10 +11,8 @@ class FirebaseService {
   String currentCollection;
   String otherCollection;
   static FirebaseService firebaseService;
-  FirebaseService() {
-    Firebase.initializeApp();
-  }
-
+  // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.;
+  String _message = '';
   static getFirebaseService() {
     if (firebaseService == null) {
       firebaseService = FirebaseService();
@@ -73,7 +72,7 @@ class FirebaseService {
 
   isProfileUpdated(email) async {
     bool exists;
-    getCurrentCollection();
+    setCurrentCollection();
     await Future.delayed(Duration(seconds: 2));
     await FirebaseFirestore.instance
         .collection(currentCollection)
@@ -86,25 +85,19 @@ class FirebaseService {
   }
 
   getRoleList() {
+    print("=============" + otherCollection);
     return FirebaseFirestore.instance.collection(otherCollection).snapshots();
   }
 
-  Future<String> getRoleToDisplay(String email) async {
-    String roleToDisplay;
-    await FirebaseFirestore.instance
-        .collection("social_service_org")
+  getProfile() {
+    return FirebaseFirestore.instance
+        .collection(currentCollection)
         .doc(email)
-        .get()
-        .then((doc) => {
-              if (doc.exists)
-                {roleToDisplay = "restaurant"}
-              else
-                {roleToDisplay = "social_service_org"}
-            });
-    return roleToDisplay;
+        .snapshots();
   }
 
-  Future<void> getCurrentCollection() async {
+  Future<void> setCurrentCollection() async {
+    print("###########################################");
     String roleToDisplay;
     email = FirebaseAuth.instance.currentUser.email;
     await FirebaseFirestore.instance
@@ -124,4 +117,37 @@ class FirebaseService {
                 }
             });
   }
+
+  registerOnFirebase() {
+    FirebaseMessaging.instance.subscribeToTopic('all');
+    FirebaseMessaging.instance.getToken().then((token) => print(token));
+  }
+
+  void getMessage() {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      if (message != null) {
+        print(message);
+        print('received message');
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A new onMessageOpenedApp event was published!');
+      // Navigator.push(BuildContext(), route)
+      // Navigator.pushNamed(context, '/message',
+      //     arguments: MessageArguments(message, true));
+    });
+  }
+
+  //       onMessage: (Map<String, dynamic> message) async {
+  //     print('received message');
+  //     setState(() => _message = message["notification"]["body"]);
+  //   }, onResume: (Map<String, dynamic> message) async {
+  //     print('on resume $message');
+  //     setState(() => _message = message["notification"]["body"]);
+  //   }, onLaunch: (Map<String, dynamic> message) async {
+  //     print('on launch $message');
+  //     setState(() => _message = message["notification"]["body"]);
+  //   });
+  // }
 }

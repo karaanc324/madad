@@ -39,6 +39,8 @@ dependencies:
   fluttertoast: ^8.0.3
   flutter_login:
   double_back_to_close_app: ^2.0.1
+  firebase_messaging: ^10.0.0
+  flutter_local_notifications:
 
 dev_dependencies:
   flutter_test:
