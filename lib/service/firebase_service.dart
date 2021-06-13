@@ -1,16 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
-class FirebaseService {
+class FirebaseService extends ChangeNotifier {
   String email;
   String collection;
   String currentCollection;
   String otherCollection;
   static FirebaseService firebaseService;
+  int notificationCounter = 0;
   // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.;
   String _message = '';
   static getFirebaseService() {
@@ -118,25 +119,53 @@ class FirebaseService {
             });
   }
 
+  void resetCounter() {
+    notificationCounter = 0;
+    notifyListeners();
+  }
+
   registerOnFirebase() {
     FirebaseMessaging.instance.subscribeToTopic('all');
     FirebaseMessaging.instance.getToken().then((token) => print(token));
   }
 
-  void getMessage() {
+  void incrementCounter() {
+    print("========================== increment counter called");
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       if (message != null) {
-        print(message);
+        // print(message);
         print('received message');
+        notificationCounter++;
+        notifyListeners();
       }
+      print(notificationCounter);
     });
+
+    // incrementCounter() {
+    //   Provider.of(_, listen: false).inc
+    //   notifyListeners();
+    //   notificationCounter++;
+    // }
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('A new onMessageOpenedApp event was published!');
+      if (message != null) {
+        print(message);
+        print('received messagelolol');
+        // notificationCounter++;
+        // notifyListeners();
+      }
+      print(this.notificationCounter);
+      // Provider.of<FirebaseService>().incrementCounter();
+      // notifyListeners();
       // Navigator.push(BuildContext(), route)
       // Navigator.pushNamed(context, '/message',
       //     arguments: MessageArguments(message, true));
     });
+  }
+
+  int getCounter() {
+    return notificationCounter;
   }
 
   //       onMessage: (Map<String, dynamic> message) async {

@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:madad/screens/dashboard.dart';
 import 'package:madad/screens/save_org.dart';
@@ -10,7 +7,6 @@ import 'package:madad/service/firebase_service.dart';
 class LoginPage {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  File _image;
 
   Padding getLoginPage(BuildContext context) {
     return Padding(

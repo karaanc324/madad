@@ -1,10 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/plugin_api.dart';
-import "package:latlong/latlong.dart" as latLng;
 import 'package:madad/screens/login.dart';
-import 'package:madad/screens/save_org.dart';
 import 'package:madad/service/firebase_service.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,10 +14,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData.dark(),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    return ChangeNotifierProvider(
+      create: (context) => FirebaseService(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData.dark(),
+        debugShowCheckedModeBanner: false,
+        home: MyHomePage(title: 'Flutter Demo Home Page'),
+      ),
     );
   }
 }
@@ -43,7 +45,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: implement initState
     super.initState();
     FirebaseService().registerOnFirebase();
-    FirebaseService().getMessage();
+    Provider.of<FirebaseService>(context, listen: false).incrementCounter();
+    // FirebaseService().getMessage();
   }
 
   var title;
