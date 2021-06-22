@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:madad/screens/notification.dart';
 import 'package:madad/service/firebase_service.dart';
 import 'package:provider/provider.dart';
 
@@ -19,37 +20,37 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
           IconButton(
               icon: Icon(Icons.notifications),
               onPressed: () {
-                print("====================");
-                // print(
-                // Provider.of<FirebaseService>(context).notificationCounter);
-                // firebaseService.notificationCounter = 0;
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyNotification()));
                 Provider.of<FirebaseService>(context, listen: false)
                     .resetCounter();
+                // FirebaseService().getNotificationTest();
               }),
-          new Positioned(
-            right: 11,
-            top: 11,
-            child: new Container(
-              padding: EdgeInsets.all(2),
-              decoration: new BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(6),
-              ),
-              constraints: BoxConstraints(
-                minWidth: 14,
-                minHeight: 14,
-              ),
-              child: Text(
-                '$lol',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 8,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-          // : new Container()
+          lol != 0
+              ? new Positioned(
+                  right: 11,
+                  top: 11,
+                  child: new Container(
+                    padding: EdgeInsets.all(2),
+                    decoration: new BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    constraints: BoxConstraints(
+                      minWidth: 14,
+                      minHeight: 14,
+                    ),
+                    child: Text(
+                      '$lol',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 8,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                )
+              : new Container()
         ],
       )
       // },

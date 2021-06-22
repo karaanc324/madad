@@ -77,16 +77,12 @@ class SignupPage {
                     color: Colors.blue,
                     child: Text('Sign Up'),
                     onPressed: () async {
-                      print(nameController.text);
-                      print(confPasswordController.text);
                       if (passwordController.text ==
                           confPasswordController.text) {
                         bool userCreated =
                             await FirebaseService.getFirebaseService()
                                 .registerUser(nameController.text,
                                     passwordController.text);
-                        print("==================");
-                        print(userCreated);
                         if (userCreated) {
                           // Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
                           // return Dashboard();

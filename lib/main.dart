@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    FirebaseService().registerOnFirebase();
+    // FirebaseService.getFirebaseService().registerOnFirebase();
     Provider.of<FirebaseService>(context, listen: false).incrementCounter();
     // FirebaseService().getMessage();
   }

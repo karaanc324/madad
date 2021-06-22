@@ -24,8 +24,6 @@ class _MyMapsState extends State<MyMaps> {
   callPosition() async {
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((value) => position = value);
-    print("===============-----------------");
-    print(position);
     setState(() {
       latLng1 = LatLng(position.latitude, position.longitude);
     });

@@ -25,6 +25,7 @@ class _SaveOrgState extends State<SaveOrg> {
   LatLng result;
   GeoPoint geoPoint;
   String role = "Restaurant";
+  String topic = "Restaurant";
 
   // TextEditingController nameController = TextEditingController();
 
@@ -41,6 +42,7 @@ class _SaveOrgState extends State<SaveOrg> {
             children: [
               Column(
                 children: [
+                  Text("Whao are you?"),
                   ListTile(
                     title: const Text('Restaurant'),
                     leading: Radio<String>(
@@ -88,6 +90,35 @@ class _SaveOrgState extends State<SaveOrg> {
                     labelText: 'Contact',
                   ),
                 ),
+              ),
+              Column(
+                children: [
+                  Text("What notifications do you want?"),
+                  ListTile(
+                    title: const Text('Restaurant'),
+                    leading: Radio<String>(
+                      value: "Restaurant",
+                      groupValue: topic,
+                      onChanged: (String value) {
+                        setState(() {
+                          topic = value;
+                        });
+                      },
+                    ),
+                  ),
+                  ListTile(
+                    title: const Text('SocialService'),
+                    leading: Radio<String>(
+                      value: "SocialService",
+                      groupValue: topic,
+                      onChanged: (String value) {
+                        setState(() {
+                          topic = value;
+                        });
+                      },
+                    ),
+                  ),
+                ],
               ),
               Container(
                 height: 50,
@@ -144,14 +175,14 @@ class _SaveOrgState extends State<SaveOrg> {
               ),
               TextButton(
                   onPressed: () {
-                    print(geoPoint.latitude.toString());
-                    print(result.latitude.toString());
                     FirebaseService.getFirebaseService().addOrganisation(
                         context,
                         nameController.text,
                         role,
                         contactController.text,
-                        geoPoint);
+                        addressController.text,
+                        geoPoint,
+                        topic);
                     if (widget.caller == "ProfilePage") {
                       Navigator.pop(context);
                     } else {
