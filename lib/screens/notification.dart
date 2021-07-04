@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:madad/helper/appbar.dart';
+import 'package:madad/screens/notification_tile.dart';
 import 'package:madad/service/firebase_service.dart';
 
 class MyNotification extends StatelessWidget {
@@ -23,7 +24,28 @@ class MyNotification extends StatelessWidget {
                     return Container(
                         // child: Text(snapshot.data.data().toString()),
                         child: ListTile(
-                      onTap: () {},
+                      onTap: () {
+                        print(snapshot.data
+                            .data()
+                            .entries
+                            .elementAt(0)
+                            .value[i]
+                            // ["sender"]
+                            // .key
+                            .toString());
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NotificationTile(snapshot
+                                        .data
+                                        .data()
+                                        .entries
+                                        .elementAt(0)
+                                        .value[i]
+                                    // ["sender"]
+                                    // .key
+                                    )));
+                      },
                       title: Text(snapshot.data
                           .data()
                           .entries

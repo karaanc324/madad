@@ -56,4 +56,12 @@ class MyUser {
   set geoPoint(GeoPoint geoPoint) {
     _geoPoint = geoPoint;
   }
+
+  String _token;
+
+  String get token => _token;
+
+  set token(String token) {
+    _token = token;
+  }
 }

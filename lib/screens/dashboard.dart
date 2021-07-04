@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +24,10 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   void initState() {
-    // FirebaseService().registerOnFirebase();
-    // Provider.of<FirebaseService>(context, listen: false).incrementCounter();
+    // FirebaseService.getFirebaseService().setCurrentUser();
+    FirebaseService.getFirebaseService().registerOnFirebase();
+    // sleep(Duration(seconds: 5));
+    Provider.of<FirebaseService>(context, listen: false).incrementCounter();
     widgetToShow = MyHomepage();
     appbarToShow = MyAppbar("HOME");
     super.initState();

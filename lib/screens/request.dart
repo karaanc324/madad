@@ -54,6 +54,7 @@ class SendRequest extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () async {
+                  print("=================request");
                   await FirebaseService.getFirebaseService().sendNotification(
                       requestTypeController.text,
                       noOfPeopleController.text,
